@@ -29,22 +29,21 @@
             struct v2f
             {
                 float4 position : SV_POSITION;
-                float3 normal : TEXCOORD0;
+                fixed4 color : COLOR;
             };
 
             v2f vert(appdata v)
             {
                 v2f o;
                 o.position = UnityObjectToClipPos(v.vertex);
-                o.normal = v.normal;
+                o.color.rgb = v.normal * 0.5 + 0.5;
+                o.color.a = 1.0;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                half4 color = 0;
-                color.rgb = i.normal * 0.5 + 0.5;
-                return color;
+                return i.color;
             }
 
             ENDCG
