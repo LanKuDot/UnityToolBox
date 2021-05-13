@@ -11,7 +11,7 @@ public class MonoSingleton<T> : MonoBehaviour
     protected void Awake()
     {
         if (Instance != null)
-            Debug.LogWarning("There has more than one class instance for MonoSingleton.")
+            Debug.LogWarning("There has more than one class instance for MonoSingleton.");
 
         Instance = GetComponent<T>();
     }
