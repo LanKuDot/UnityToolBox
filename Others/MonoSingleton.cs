@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Create the static instance of MonoBehaviour class
+/// Create the singleton instance of MonoBehaviour class
 /// </summary>
-public class MonoStatic<T> : MonoBehaviour
+public class MonoSingleton<T> : MonoBehaviour
     where T : MonoBehaviour
 {
     public static T Instance { private set; get; }
@@ -11,7 +11,7 @@ public class MonoStatic<T> : MonoBehaviour
     protected void Awake()
     {
         if (Instance != null)
-            Debug.Log("There has more than one class instance for MonoStatic.")
+            Debug.LogWarning("There has more than one class instance for MonoSingleton.")
 
         Instance = GetComponent<T>();
     }

@@ -3,7 +3,7 @@
 /// <summary>
 /// Create the singleton instance of class MonoBehaviour for entire game
 /// </summary>
-public class MonoSceneSingleton<T> : MonoStatic<T>
+public class MonoGameSingleton<T> : MonoSingleton<T>
     where T : MonoBehaviour
 {
     protected new void Awake()
