@@ -24,9 +24,9 @@ namespace CommonToolBox.StageState
         /// <summary>
         /// Start the state machine
         /// </summary>
-        public void StartMachine()
+        public void StartMachine(State startState)
         {
-            _curState = new StageStartCase(_gamePlayManager);
+            _curState = startState;
             _gamePlayManager.StartCoroutine(_curState.OnStart());
         }
 
