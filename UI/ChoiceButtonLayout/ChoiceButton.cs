@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace CommonToolBox.UI
+namespace LanKuDot.UnityToolBox.UI.ChoiceButtonLayout
 {
     /// <summary>
     /// The button for choice

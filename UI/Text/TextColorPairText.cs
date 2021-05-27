@@ -2,12 +2,12 @@
 using TMPro;
 using UnityEngine;
 
-namespace GamePlay.UI
+namespace LanKuDot.UnityToolBox.UI.Text
 {
     /// <summary>
     /// Display the text and related color
     /// </summary>
-    public class TectColorPairText : MonoBehaviour
+    public class TextColorPairText : MonoBehaviour
     {
         [SerializeField]
         private TextMeshProUGUI _text;

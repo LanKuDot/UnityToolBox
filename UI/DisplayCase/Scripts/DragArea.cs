@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace ToolBox.DisplayCase.Runtime
+namespace LanKuDot.UnityToolBox.UI.DisplayCase
 {
     [Serializable]
     public class BeginDragAreaEvent : UnityEvent<Vector2>

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CommonToolBox.UI
+namespace LanKuDot.UnityToolBox.UI.ChoiceButtonLayout
 {
     /// <summary>
     /// The basic layout item

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CommonToolBox.UI
+namespace LanKuDot.UnityToolBox.UI.ChoiceButtonLayout
 {
     /// <summary>
     /// The layout for arranging created items

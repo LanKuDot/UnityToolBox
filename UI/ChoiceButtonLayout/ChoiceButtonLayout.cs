@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CommonToolBox.UI
+﻿namespace LanKuDot.UnityToolBox.UI.ChoiceButtonLayout
 {
     public class ChoiceButtonLayout : ItemMatrixLayout<ChoiceButton>
     {

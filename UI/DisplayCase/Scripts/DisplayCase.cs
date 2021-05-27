@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ToolBox.DisplayCase.Runtime
+namespace LanKuDot.UnityToolBox.UI.DisplayCase
 {
     /// <summary>
     /// The management class of the display case

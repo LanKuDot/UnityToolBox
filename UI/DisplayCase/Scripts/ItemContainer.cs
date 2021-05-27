@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ToolBox.DisplayCase.Runtime
+namespace LanKuDot.UnityToolBox.UI.DisplayCase
 {
     /// <summary>
     /// The container for holding the items passed to the display case
