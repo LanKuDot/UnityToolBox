@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace CommonToolBox.StageState
+namespace LanKuDot.UnityToolBox.System.StageState
 {
     /// <summary>
     /// The basic component of the stage state
