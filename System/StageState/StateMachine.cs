@@ -1,22 +1,23 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace CommonToolBox.StageState
 {
     /// <summary>
     /// Control the transition between states
     /// </summary>
-    public sealed class StateMachine
+    public sealed class StateMachine<T> where T : MonoBehaviour
     {
         /// <summary>
         /// The manager providing the main functions
         /// </summary>
-        private readonly GamePlayManager _gamePlayManager;
+        private readonly T _gamePlayManager;
         /// <summary>
         /// The current state
         /// </summary>
-        private State _curState;
+        private State<T> _curState;
 
-        public StateMachine(GamePlayManager gamePlayManager)
+        public StateMachine(T gamePlayManager)
         {
             _gamePlayManager = gamePlayManager;
         }
@@ -24,7 +25,7 @@ namespace CommonToolBox.StageState
         /// <summary>
         /// Start the state machine
         /// </summary>
-        public void StartMachine(State startState)
+        public void StartMachine(State<T> startState)
         {
             _curState = startState;
             _gamePlayManager.StartCoroutine(_curState.OnStart());

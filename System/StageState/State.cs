@@ -1,15 +1,16 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace CommonToolBox.StageState
 {
     /// <summary>
     /// The basic component of the stage state
     /// </summary>
-    public abstract class State
+    public abstract class State<T> where T : MonoBehaviour
     {
-        protected readonly GamePlayManager gamePlayManager;
+        protected readonly T gamePlayManager;
 
-        protected State(GamePlayManager gamePlayManager)
+        protected State(T gamePlayManager)
         {
             this.gamePlayManager = gamePlayManager;
         }
@@ -34,7 +35,7 @@ namespace CommonToolBox.StageState
         /// Get the next state of this state
         /// </summary>
         /// <returns>The next state</returns>
-        public virtual State GetNextState()
+        public virtual State<T> GetNextState()
         {
             return null;
         }
