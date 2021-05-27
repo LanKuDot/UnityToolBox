@@ -5,7 +5,7 @@ namespace LanKuDot.UnityToolBox.Math
     /// <summary>
     /// The class for some mathematical calculation
     /// </summary>
-    public static class MathUtils
+    public static class MathUtility
     {
         /// <summary>
         /// Get (cos(deg), sin(deg))
