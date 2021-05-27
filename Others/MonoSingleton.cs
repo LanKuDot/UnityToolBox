@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Create the singleton instance of MonoBehaviour class
-/// </summary>
-public class MonoSingleton<T> : MonoBehaviour
-    where T : MonoBehaviour
+namespace LanKuDot.UnityToolBox
 {
-    public static T Instance { private set; get; }
-
-    protected void Awake()
+    /// <summary>
+    /// Create the singleton instance of MonoBehaviour class
+    /// </summary>
+    public class MonoSingleton<T> : MonoBehaviour
+        where T : MonoBehaviour
     {
-        if (Instance != null)
-            Debug.LogWarning("There has more than one class instance for MonoSingleton.");
+        public static T Instance { private set; get; }
 
-        Instance = GetComponent<T>();
+        protected void Awake()
+        {
+            if (Instance != null)
+                Debug.LogWarning("There has more than one class instance for MonoSingleton.");
+
+            Instance = GetComponent<T>();
+        }
     }
 }

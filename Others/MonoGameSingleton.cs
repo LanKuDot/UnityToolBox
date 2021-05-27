@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Create the singleton instance of class MonoBehaviour for entire game
-/// </summary>
-public class MonoGameSingleton<T> : MonoSingleton<T>
-    where T : MonoBehaviour
+namespace LanKuDot.UnityToolBox
 {
-    protected new void Awake()
+    /// <summary>
+    /// Create the singleton instance of class MonoBehaviour for entire game
+    /// </summary>
+    public class MonoGameSingleton<T> : MonoSingleton<T>
+        where T : MonoBehaviour
     {
-        if (Instance == null) {
-            base.Awake();
-            DontDestroyOnLoad(gameObject);
-        } else if (Instance.gameObject != gameObject) {
-            Destroy(gameObject);
+        protected new void Awake()
+        {
+            if (Instance == null) {
+                base.Awake();
+                DontDestroyOnLoad(gameObject);
+            } else if (Instance.gameObject != gameObject) {
+                Destroy(gameObject);
+            }
         }
     }
 }
