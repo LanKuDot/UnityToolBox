@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace LanKuDot.UnityToolBox.UI
+namespace LanKuDot.UnityToolBox.UI.PointerDetection
 {
     /// <summary>
     /// Detect the user pointer action on ui panel
     /// </summary>
-    public class PointerDetectionUI : MonoBehaviour,
-        IDragHandler, IPointerDownHandler, IPointerUpHandler
+    public class PointerDraggingDeltaUI : PointerDetectionUI
     {
         #region Serialized Fields
 
@@ -49,22 +48,28 @@ namespace LanKuDot.UnityToolBox.UI
 
         #endregion
 
-        public void OnPointerDown(PointerEventData eventData)
+        public override void OnPointerDown(PointerEventData eventData)
         {
             isPressing = true;
             _startDraggingPos = eventData.position;
+
+            base.OnPointerDown(eventData);
         }
 
-        public void OnDrag(PointerEventData eventData)
+        public override void OnDrag(PointerEventData eventData)
         {
             var draggingDelta = eventData.position - _startDraggingPos;
             _draggingRatioUnclamped.x = draggingDelta.x / _maxDraggingDistance;
             _draggingRatioUnclamped.y = draggingDelta.y / _maxDraggingDistance;
+
+            base.OnDrag(eventData);
         }
 
-        public void OnPointerUp(PointerEventData eventData)
+        public override void OnPointerUp(PointerEventData eventData)
         {
             isPressing = false;
+            base.OnPointerUp(eventData);
+
             _draggingRatioUnclamped = Vector2.zero;
         }
     }
