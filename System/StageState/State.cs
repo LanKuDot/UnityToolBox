@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace LanKuDot.UnityToolBox.System.StageState
@@ -6,13 +8,15 @@ namespace LanKuDot.UnityToolBox.System.StageState
     /// <summary>
     /// The basic component of the stage state
     /// </summary>
-    public abstract class State<T> where T : MonoBehaviour
+    public abstract class State<TManager, TStateEnum>
+        where TManager : MonoBehaviour
+        where TStateEnum : Enum
     {
-        protected readonly T gamePlayManager;
+        protected readonly TManager manager;
 
-        protected State(T gamePlayManager)
+        protected State(TManager manager)
         {
-            this.gamePlayManager = gamePlayManager;
+            this.manager = manager;
         }
 
         /// <summary>
@@ -35,9 +39,7 @@ namespace LanKuDot.UnityToolBox.System.StageState
         /// Get the next state of this state
         /// </summary>
         /// <returns>The next state</returns>
-        public virtual State<T> GetNextState()
-        {
-            return null;
-        }
+        [CanBeNull]
+        public abstract TStateEnum GetNextState();
     }
 }

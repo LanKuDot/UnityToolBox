@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace LanKuDot.UnityToolBox.System.StageState
@@ -6,29 +9,58 @@ namespace LanKuDot.UnityToolBox.System.StageState
     /// <summary>
     /// Control the transition between states
     /// </summary>
-    public sealed class StateMachine<T> where T : MonoBehaviour
+    public class StateMachine<TManager, TStateEnum>
+        where TManager : MonoBehaviour
+        where TStateEnum : Enum
     {
         /// <summary>
         /// The manager providing the main functions
         /// </summary>
-        private readonly T _gamePlayManager;
+        private readonly TManager _manager;
         /// <summary>
-        /// The current state
+        /// The dictionary for storing the mapping of state to state item
         /// </summary>
-        private State<T> _curState;
+        private readonly Dictionary<TStateEnum, State<TManager, TStateEnum>> _states;
+        /// <summary>
+        /// The current state item
+        /// </summary>
+        private State<TManager, TStateEnum> _curStateItem;
+        /// <summary>
+        /// The current state enum
+        /// </summary>
+        [CanBeNull]
+        private TStateEnum _curStateEnum;
 
-        public StateMachine(T gamePlayManager)
+        public event Action<TStateEnum, TStateEnum> onStateChanged;
+
+        public StateMachine(TManager manager)
         {
-            _gamePlayManager = gamePlayManager;
+            _manager = manager;
+            _states = new Dictionary<TStateEnum, State<TManager, TStateEnum>>();
+        }
+
+        /// <summary>
+        /// Register the state item to the that state
+        /// </summary>
+        /// <param name="stateItem">The state item</param>
+        /// <param name="atState">The corresponding state</param>
+        public void RegisterState(
+            State<TManager, TStateEnum> stateItem, TStateEnum atState)
+        {
+            _states[atState] = stateItem;
         }
 
         /// <summary>
         /// Start the state machine
         /// </summary>
-        public void StartMachine(State<T> startState)
+        public void StartMachine(TStateEnum startState)
         {
-            _curState = startState;
-            _gamePlayManager.StartCoroutine(_curState.OnStart());
+            if (startState == null)
+                throw new ArgumentNullException(nameof(startState));
+
+            _curStateEnum = startState;
+            _curStateItem = _states[_curStateEnum];
+            _manager.StartCoroutine(_curStateItem.OnStart());
         }
 
         /// <summary>
@@ -36,18 +68,24 @@ namespace LanKuDot.UnityToolBox.System.StageState
         /// </summary>
         public void NextState()
         {
-            if (_curState == null)
+            if (_curStateEnum == null)
                 return;
 
-            _gamePlayManager.StartCoroutine(StateTransition());
+            _manager.StartCoroutine(StateTransition());
         }
 
         private IEnumerator StateTransition()
         {
-            yield return _curState.OnEnd();
-            _curState = _curState.GetNextState();
-            if (_curState != null)
-                yield return _curState.OnStart();
+            var lastStateEnum = _curStateEnum;
+
+            yield return _curStateItem.OnEnd();
+            _curStateEnum = _curStateItem.GetNextState();
+            if (_curStateEnum != null) {
+                _curStateItem = _states[_curStateEnum];
+                yield return _curStateItem.OnStart();
+            }
+
+            onStateChanged?.Invoke(lastStateEnum, _curStateEnum);
         }
     }
 }
