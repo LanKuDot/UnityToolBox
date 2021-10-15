@@ -26,12 +26,12 @@ namespace LanKuDot.UnityToolBox.UI.PointerDetection
             onDragBegin?.Invoke(GetRay(eventData.position));
         }
 
-        public void OnPointerUp(PointerEventData eventData)
+        public void OnDrag(PointerEventData eventData)
         {
             onDragging?.Invoke(GetRay(eventData.position));
         }
 
-        public void OnDrag(PointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
             onDragEnd?.Invoke(GetRay(eventData.position));
         }
