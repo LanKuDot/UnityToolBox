@@ -1,10 +1,9 @@
-using LanKuDot.UnityToolBox.Math;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace ToolBox.Editor
+namespace LanKuDot.UnityToolBox.Math.Editor
 {
     [CustomPropertyDrawer(typeof(MinMaxValue))]
     public class MinMaxValueEditor : PropertyDrawer

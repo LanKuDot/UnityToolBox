@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace LanKuDot.UnityToolBox.ObjectManagement.Editor
+namespace LanKuDot.UnityToolBox.ObjectManagement.ObjectPoolNS.Editor
 {
     [CustomEditor(typeof(ObjectPool))]
     public class ObjectPoolEditor : UnityEditor.Editor

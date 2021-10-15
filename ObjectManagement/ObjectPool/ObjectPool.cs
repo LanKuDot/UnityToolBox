@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using LanKuDot.UnityToolBox.Attributes;
 using UnityEngine;
 
-namespace LanKuDot.UnityToolBox.ObjectManagement
+namespace LanKuDot.UnityToolBox.ObjectManagement.ObjectPoolNS
 {
-    public class ObjectPool : MonoBehaviour
+    public class ObjectPool : MonoSingleton<ObjectPool>
     {
-        public static ObjectPool Instance { get; private set; }
-
         [SerializeField]
         private ObjectPoolItem[] _poolItems = new ObjectPoolItem[1];
 
@@ -17,9 +16,9 @@ namespace LanKuDot.UnityToolBox.ObjectManagement
         private readonly Dictionary<string, GameObject> _objectsToPool =
             new Dictionary<string, GameObject>();
 
-        private void Awake()
+        private new void Awake()
         {
-            Instance = this;
+            base.Awake();
 
             foreach (var item in _poolItems) {
                 var queue = new Queue<GameObject>();
@@ -29,28 +28,33 @@ namespace LanKuDot.UnityToolBox.ObjectManagement
                 _pools.Add(objName, queue);
 
                 for (var i = 0; i < item.initialNum; ++i) {
-                    var obj = Instantiate(originalObj, transform);
-                    obj.name = objName;
+                    var obj = SpawnObject(objName);
+                    obj.transform.SetParent(transform);
                     ReturnObject(obj);
-                    obj.SetActive(false);
                 }
 
                 _objectsToPool.Add(objName, originalObj);
             }
         }
 
+        private GameObject SpawnObject(string objName)
+        {
+            var originalObj = _objectsToPool[objName];
+            var newObj = Instantiate(originalObj);
+            newObj.name = objName;
+            return newObj;
+        }
+
         public GameObject GetObject(string objName)
         {
             var pool = _pools[objName];
-            var originalObj = _objectsToPool[objName];
-            var obj = pool.Count == 0 ?
-                Instantiate(originalObj) : pool.Dequeue();
-            obj.name = originalObj.name;
-            return obj;
+            return pool.Count == 0 ? SpawnObject(objName) : pool.Dequeue();
         }
 
         public void ReturnObject(GameObject obj)
         {
+            if (obj.activeSelf)
+                obj.SetActive(false);
             _pools[obj.name].Enqueue(obj);
         }
     }
