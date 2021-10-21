@@ -7,7 +7,7 @@ namespace LanKuDot.UnityToolBox.System
         [SerializeField]
         private bool _backToLeave = true;
         [SerializeField]
-        private bool _allowMultiTouch = true;
+        private bool _allowMultiTouch = false;
 
         private void Awake()
         {
