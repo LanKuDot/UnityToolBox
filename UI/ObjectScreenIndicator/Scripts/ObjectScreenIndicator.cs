@@ -128,9 +128,9 @@ namespace LanKuDot.UnityToolBox.UI.ObjectScreenIndicator
             }
 
             var degree =
-                MathUtility.GetVectorSignedDegree(objScreenPos - _indicatorObject.position);
+                Vector2Utility.GetVectorSignedDegree(objScreenPos - _indicatorObject.position);
             var localPosition =
-                MathUtility.GetCirclePosition(Vector2.zero, _pointerObjectRadius, degree);
+                Vector2Utility.GetCirclePosition(Vector2.zero, _pointerObjectRadius, degree);
 
             _pointerObject.gameObject.SetActive(true);
             _pointerObject.localPosition = localPosition;
