@@ -3,9 +3,9 @@
 namespace LanKuDot.UnityToolBox.Math
 {
     /// <summary>
-    /// The class for some mathematical calculation
+    /// The class for mathematical calculation based on Vector2
     /// </summary>
-    public static class MathUtility
+    public static class Vector2Utility
     {
         /// <summary>
         /// Get (cos(deg), sin(deg))
