@@ -10,9 +10,13 @@ namespace LanKuDot.UnityToolBox.UI.PointerDetection
     public class PointerDetectionUI : MonoBehaviour,
         IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
+        #region Events
+
         public event UnityAction<Vector2> onDragBegin;
         public event UnityAction<Vector2> onDragging;
         public event UnityAction<Vector2> onDragEnd;
+
+        #endregion
 
         #region Handler Implementation
 
