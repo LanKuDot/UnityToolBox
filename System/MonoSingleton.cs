@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LanKuDot.UnityToolBox
+namespace LanKuDot.UnityToolBox.System
 {
     /// <summary>
     /// Create the singleton instance of MonoBehaviour class

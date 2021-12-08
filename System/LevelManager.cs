@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace LanKuDot.UnityToolBox
+namespace LanKuDot.UnityToolBox.System
 {
     public class LevelManager : MonoGameSingleton<LevelManager>
     {
