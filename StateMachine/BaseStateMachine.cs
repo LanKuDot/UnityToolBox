@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LanKuDot.UnityToolBox.System.StageState
+namespace LanKuDot.UnityToolBox.StateMachine
 {
     /// <summary>
     /// Control the transition between states

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LanKuDot.UnityToolBox.System.StageState
+namespace LanKuDot.UnityToolBox.StateMachine
 {
     public abstract class BaseStateEnumeration
     {}

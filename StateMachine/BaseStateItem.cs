@@ -1,4 +1,4 @@
-﻿namespace LanKuDot.UnityToolBox.System.StageState
+﻿namespace LanKuDot.UnityToolBox.StateMachine
 {
     /// <summary>
     /// The basic component of the stage state
