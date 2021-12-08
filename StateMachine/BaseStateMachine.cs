@@ -17,11 +17,11 @@ namespace LanKuDot.UnityToolBox.StateMachine
         /// <summary>
         /// The current state item
         /// </summary>
-        private TStateItem _curStateItem;
+        protected TStateItem curStateItem { get; private set; }
         /// <summary>
         /// The current state enum
         /// </summary>
-        private TStateEnum _curState;
+        protected TStateEnum curState { get; private set; }
 
         public event Action<TStateEnum, TStateEnum> onStateChanged;
 
@@ -46,13 +46,13 @@ namespace LanKuDot.UnityToolBox.StateMachine
         /// </summary>
         public void StartMachine(TStateEnum startState)
         {
-            _curState =
+            curState =
                 startState ?? throw new NullReferenceException(nameof(startState));
-            _curStateItem = _states[_curState];
-            _curStateItem.OnStart();
+            curStateItem = _states[curState];
+            curStateItem.OnStart();
 
-            if (_curStateItem.autoTransitionState != null)
-                NextState(_curStateItem.autoTransitionState);
+            if (curStateItem.autoTransitionState != null)
+                NextState(curStateItem.autoTransitionState);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace LanKuDot.UnityToolBox.StateMachine
         /// </summary>
         public void NextState(TStateEnum nextState)
         {
-            if (_curState == null)
+            if (curState == null)
                 return;
 
             StateTransition(nextState);
@@ -68,20 +68,20 @@ namespace LanKuDot.UnityToolBox.StateMachine
 
         private void StateTransition(TStateEnum nextState)
         {
-            var lastState = _curState;
+            var lastState = curState;
 
-            _curStateItem.OnEnd();
+            curStateItem.OnEnd();
 
-            _curState = nextState;
-            if (_curState != null) {
-                _curStateItem = _states[_curState];
-                _curStateItem.OnStart();
+            curState = nextState;
+            if (curState != null) {
+                curStateItem = _states[curState];
+                curStateItem.OnStart();
             }
 
-            onStateChanged?.Invoke(lastState, _curState);
+            onStateChanged?.Invoke(lastState, curState);
 
-            if (_curState != null && _curStateItem.autoTransitionState != null)
-                NextState(_curStateItem.autoTransitionState);
+            if (curState != null && curStateItem.autoTransitionState != null)
+                NextState(curStateItem.autoTransitionState);
         }
     }
 }
