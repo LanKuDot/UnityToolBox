@@ -4,9 +4,8 @@ namespace LanKuDot.UnityToolBox.StateMachine.Character
 {
     public class CharacterStateItem : BaseStateItem<CharacterStateEnum>
     {
-        public CharacterStateItem(
-            CharacterStateEnum targetState, CharacterStateEnum autoTransitionState = null)
-            : base(targetState, autoTransitionState)
+        public CharacterStateItem(CharacterStateEnum targetState)
+            : base(targetState)
         {
         }
 

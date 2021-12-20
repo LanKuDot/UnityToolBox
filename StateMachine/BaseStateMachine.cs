@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using LanKuDot.UnityToolBox.EventManagement;
+using LanKuDot.UnityToolBox.StateMachine.Message;
 
 namespace LanKuDot.UnityToolBox.StateMachine
 {
@@ -29,6 +31,10 @@ namespace LanKuDot.UnityToolBox.StateMachine
         {
             _states = new Dictionary<TStateEnum, TStateItem>();
             RegisterState(stateItems);
+
+            EventManager.Register<StateTransitionMessage<TStateEnum>>(
+                msg => NextState(msg.nextState)
+            );
         }
 
         /// <summary>
@@ -50,9 +56,6 @@ namespace LanKuDot.UnityToolBox.StateMachine
                 startState ?? throw new NullReferenceException(nameof(startState));
             curStateItem = _states[curState];
             curStateItem.OnStart();
-
-            if (curStateItem.autoTransitionState != null)
-                NextState(curStateItem.autoTransitionState);
         }
 
         /// <summary>
@@ -79,9 +82,6 @@ namespace LanKuDot.UnityToolBox.StateMachine
             }
 
             onStateChanged?.Invoke(lastState, curState);
-
-            if (curState != null && curStateItem.autoTransitionState != null)
-                NextState(curStateItem.autoTransitionState);
         }
     }
 }
