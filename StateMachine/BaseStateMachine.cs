@@ -32,7 +32,7 @@ namespace LanKuDot.UnityToolBox.StateMachine
             _states = new Dictionary<TStateEnum, TStateItem>();
             RegisterState(stateItems);
 
-            EventManager.Register<StateTransitionMessage<TStateEnum>>(
+            EventManager.AddListener<StateTransitionMessage<TStateEnum>>(
                 msg => NextState(msg.nextState)
             );
         }

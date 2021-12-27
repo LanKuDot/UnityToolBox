@@ -5,23 +5,44 @@ namespace LanKuDot.UnityToolBox.EventManagement
 {
     public static class EventManager
     {
-        private static readonly Dictionary<Type, List<object>> _eventCallbacks =
-            new Dictionary<Type, List<object>>();
+        private static readonly Dictionary<Type, IEventCallback> _eventCallbacks =
+            new Dictionary<Type, IEventCallback>();
 
         /// <summary>
-        /// Register a callback to the event
+        /// Add a callback to the event
         /// </summary>
         /// <param name="callback">The callback of the event</param>
         /// <typeparam name="TMsg">The type of the event</typeparam>
-        public static void Register<TMsg>(Action<TMsg> callback)
+        public static void AddListener<TMsg>(Action<TMsg> callback)
             where TMsg : struct
         {
-            if (!_eventCallbacks.TryGetValue(typeof(TMsg), out var callbackList)) {
-                callbackList = new List<object>();
-                _eventCallbacks[typeof(TMsg)] = callbackList;
+            EventCallback<TMsg> callbacks;
+
+            if (!_eventCallbacks.TryGetValue(typeof(TMsg), out var dictValue)) {
+                callbacks = new EventCallback<TMsg>();
+                _eventCallbacks[typeof(TMsg)] = callbacks;
+            } else
+                callbacks = (EventCallback<TMsg>) dictValue;
+
+            callbacks.AddListener(callback);
+        }
+
+        /// <summary>
+        /// Remove a callback from the event
+        /// </summary>
+        /// <param name="callback">The callback to be removed</param>
+        /// <typeparam name="TMsg">The type of the event</typeparam>
+        /// <exception cref="ArgumentException">
+        /// Raised if the event type is invalid
+        /// </exception>
+        public static void RemoveListener<TMsg>(Action<TMsg> callback)
+        {
+            if (!_eventCallbacks.TryGetValue(typeof(TMsg), out var dictValue)) {
+                throw new ArgumentException($"{typeof(TMsg)} is not registered");
             }
 
-            callbackList.Add(callback);
+            var callbacks = (EventCallback<TMsg>) dictValue;
+            callbacks.RemoveListener(callback);
         }
 
         /// <summary>
@@ -32,12 +53,10 @@ namespace LanKuDot.UnityToolBox.EventManagement
         public static void Invoke<TMsg>(TMsg msg)
             where TMsg : struct
         {
-            if (!_eventCallbacks.TryGetValue(typeof(TMsg), out var callbackList))
-                throw new ArgumentException($"{typeof(TMsg)} is not registered");
+            if (!_eventCallbacks.TryGetValue(typeof(TMsg), out var callbacks ))
+                throw new ArgumentException($"{nameof(TMsg)} is not registered");
 
-            foreach (var callback in callbackList) {
-                ((Action<TMsg>) callback).Invoke(msg);
-            }
+            ((EventCallback<TMsg>) callbacks).Invoke(msg);
         }
     }
 }
