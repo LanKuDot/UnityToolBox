@@ -1,3 +1,5 @@
+using System;
+using LanKuDot.UnityToolBox.EventManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,6 +7,21 @@ namespace LanKuDot.UnityToolBox.System
 {
     public class LevelManager : MonoGameSingleton<LevelManager>
     {
+        #region Enum/Message
+
+        public enum LoadAction
+        {
+            Next,
+            Reload
+        }
+
+        public struct LoadLevelMsg
+        {
+            public LoadAction action;
+        }
+
+        #endregion
+
         [SerializeField]
         private bool _singleLevelTest;
         [SerializeField]
@@ -17,6 +34,25 @@ namespace LanKuDot.UnityToolBox.System
         {
             if (_singleLevelTest)
                 _curLevelName = SceneManager.GetActiveScene().name;
+
+            EventManager.AddListener<LoadLevelMsg>(OnLoadLevelMsg);
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.RemoveListener<LoadLevelMsg>(OnLoadLevelMsg);
+        }
+
+        private void OnLoadLevelMsg(LoadLevelMsg msg)
+        {
+            switch (msg.action) {
+                case LoadAction.Next:
+                    NextLevel();
+                    break;
+                case LoadAction.Reload:
+                    ReloadLevel();
+                    break;
+            }
         }
 
         public void NextLevel()
