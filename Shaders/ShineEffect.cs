@@ -22,7 +22,8 @@ namespace LanKuDot.UnityToolBox.Shaders
         {
             _materialProperty ??= new MaterialPropertyBlock();
             foreach (var renderer in _renderers)
-                renderer.material.EnableKeyword("_EMISSION");
+                foreach (var material in renderer)
+                    material.EnableKeyword("_EMISSION");
         }
 
         public void Shine()
