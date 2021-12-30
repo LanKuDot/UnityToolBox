@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace LanKuDot.UnityToolBox.ObjectManagement.Raycasting
 {
@@ -27,6 +28,13 @@ namespace LanKuDot.UnityToolBox.ObjectManagement.Raycasting
         /// Select the object
         /// </summary>
         public virtual void Select()
+        {
+        }
+
+        /// <summary>
+        /// Drag the object
+        /// </summary>
+        public virtual void Drag(PointerEventData eventData)
         {
         }
 

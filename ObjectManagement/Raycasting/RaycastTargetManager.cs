@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using LanKuDot.UnityToolBox.UI.PointerDetection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace LanKuDot.UnityToolBox.ObjectManagement.Raycasting
 {
@@ -65,28 +66,32 @@ namespace LanKuDot.UnityToolBox.ObjectManagement.Raycasting
 
         #region UI Event Callback
 
-        private void OnDragBegin(Vector2 screenPos)
+        private void OnDragBegin(PointerEventData eventData)
         {
-            var ray = _camera.ScreenPointToRay(screenPos);
+            var ray = _camera.ScreenPointToRay(eventData.position);
 
             if (!CheckHitTarget(ray, out var hitTarget))
                 return;
 
             _selectedObject = hitTarget;
             _selectedObject.Select();
+            _selectedObject.Drag(eventData);
         }
 
-        private void OnDragging(Vector2 screenPos)
+        private void OnDragging(PointerEventData eventData)
         {
             if (!_selectedObject || !_selectedObject.raycastable)
                 return;
+
+            _selectedObject.Drag(eventData);
         }
 
-        private void OnDragEnd(Vector2 screenPos)
+        private void OnDragEnd(PointerEventData eventData)
         {
             if (!_selectedObject)
                 return;
 
+            _selectedObject.Drag(eventData);
             _selectedObject.UnSelect();
             _selectedObject = null;
         }

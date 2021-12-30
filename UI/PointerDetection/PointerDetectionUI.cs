@@ -12,9 +12,9 @@ namespace LanKuDot.UnityToolBox.UI.PointerDetection
     {
         #region Events
 
-        public event UnityAction<Vector2> onDragBegin;
-        public event UnityAction<Vector2> onDragging;
-        public event UnityAction<Vector2> onDragEnd;
+        public event UnityAction<PointerEventData> onDragBegin;
+        public event UnityAction<PointerEventData> onDragging;
+        public event UnityAction<PointerEventData> onDragEnd;
 
         #endregion
 
@@ -22,17 +22,17 @@ namespace LanKuDot.UnityToolBox.UI.PointerDetection
 
         public virtual void OnPointerDown(PointerEventData eventData)
         {
-            onDragBegin?.Invoke(eventData.position);
+            onDragBegin?.Invoke(eventData);
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
-            onDragEnd?.Invoke(eventData.position);
+            onDragEnd?.Invoke(eventData);
         }
 
         public virtual void OnDrag(PointerEventData eventData)
         {
-            onDragging?.Invoke(eventData.position);
+            onDragging?.Invoke(eventData);
         }
 
         #endregion
