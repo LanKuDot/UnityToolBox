@@ -31,8 +31,9 @@ namespace LanKuDot.UnityToolBox.Shaders
             DOTween.To(
                     () => _color, x => _color = x,
                     _shineCurve.endValue, _shineCurve.duration)
-                .SetEase(_shineCurve.curve)
-                .OnUpdate(UpdateMaterialColor);
+                .OnUpdate(UpdateMaterialColor)
+                .SetUpdate(UpdateType.Normal)
+                .SetEase(_shineCurve.curve);
         }
 
         private void UpdateMaterialColor()
