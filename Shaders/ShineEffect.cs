@@ -22,7 +22,7 @@ namespace LanKuDot.UnityToolBox.Shaders
         {
             _materialProperty ??= new MaterialPropertyBlock();
             foreach (var renderer in _renderers)
-                foreach (var material in renderer)
+                foreach (var material in renderer.materials)
                     material.EnableKeyword("_EMISSION");
         }
 
