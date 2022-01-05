@@ -1,5 +1,5 @@
-using System;
 using LanKuDot.UnityToolBox.EventManagement;
+using LanKuDot.UnityToolBox.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

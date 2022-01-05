@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LanKuDot.UnityToolBox.Attributes;
-using LanKuDot.UnityToolBox.System;
+using LanKuDot.UnityToolBox.Generic;
 using UnityEngine;
 
 namespace LanKuDot.UnityToolBox.ObjectManagement.ObjectPoolNS
